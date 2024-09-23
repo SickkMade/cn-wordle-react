@@ -1,0 +1,18 @@
+.wordlegame--div{
+    width:500px;
+    display:flex;
+}
+
+.wordlegame--tile{
+    width: 15%;
+    aspect-ratio: 1;
+    border: 2px solid lightgray;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin:.5%;
+}
+.wordlegame{
+    height:600px;
+}
