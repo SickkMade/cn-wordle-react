@@ -30,7 +30,14 @@ function WordleGame() {
 
     const submitMessage = () => {
         if(currentIndex >= 6) return;
+        
         setCurrentIndex(currentIndex+1);
+    }
+
+    const getColors = (letterIndex, currentGuess) => {
+        if(currentGuess[letterIndex] === secretWord[letterIndex]){
+            return 'wordle--game--tile__green'
+        }
     }
     
   return (
@@ -40,7 +47,7 @@ function WordleGame() {
             <div className="wordlegame--div" key={i}>
                 {Array(secretWord.length).fill('').map((_, j) => {
                     return(
-                    <div className="wordlegame--tile" key={j}>
+                    <div className={`wordlegame--tile ${i < currentIndex ? getColors(j, word) : ''}`} key={j}>
                         <p>{word[j]}</p>
                     </div>
                     )

@@ -16,3 +16,7 @@
 .wordlegame{
     height:600px;
 }
+
+.wordle--game--tile__green{
+    border: 2px solid lime;
+}
