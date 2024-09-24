@@ -6,7 +6,7 @@
 .wordlegame--tile{
     width: 15%;
     aspect-ratio: 1;
-    border: 2px solid lightgray;
+    border: 2px solid var(--color);
 
     display:flex;
     justify-content: center;

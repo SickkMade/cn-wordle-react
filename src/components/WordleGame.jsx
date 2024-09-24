@@ -2,9 +2,11 @@ import { useState, useEffect } from "react"
 import '../css/wordlegame.css'
 
 function WordleGame() {
-    const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
-    const [currentIndex, setCurrentIndex] = useState(0);
     const secretWord = 'NINJA'
+    const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
+    const [colors, setColors] = useState(Array.from(Array(6), () => Array(secretWord.length).fill('lightgray')))
+    const [currentIndex, setCurrentIndex] = useState(0);
+    
 
     useEffect(() => {
         document.addEventListener('keydown', detectKeyDown)
@@ -31,13 +33,31 @@ function WordleGame() {
     const submitMessage = () => {
         if(currentIndex >= 6) return;
         
+        changeColors(currentIndex, guesses[currentIndex])
         setCurrentIndex(currentIndex+1);
     }
 
-    const getColors = (letterIndex, currentGuess) => {
-        if(currentGuess[letterIndex] === secretWord[letterIndex]){
-            return 'wordle--game--tile__green'
+    const changeColors = (rowIndex, guessedWord) => {
+        const usedIndices = new Array(24).fill(0);
+        for(let i = 0; i < secretWord.length; i++) {
+            const letterIndex = secretWord.charCodeAt(i) - 65
+            usedIndices[letterIndex] += 1
         }
+
+        const newColors = [...colors]
+        for(let i = 0; i < newColors[rowIndex].length; i++){
+            const letterIndex = guessedWord.charCodeAt(i) - 65
+
+            if(guesses[rowIndex][i] === secretWord[i]){
+                newColors[rowIndex][i] = 'limegreen';
+                usedIndices[letterIndex]--
+            }
+            else if(usedIndices[letterIndex] > 0){
+                usedIndices[letterIndex]--
+                newColors[rowIndex][i] = 'yellow';
+            }
+        }
+        setColors(newColors);
     }
     
   return (
@@ -47,7 +67,7 @@ function WordleGame() {
             <div className="wordlegame--div" key={i}>
                 {Array(secretWord.length).fill('').map((_, j) => {
                     return(
-                    <div className={`wordlegame--tile ${i < currentIndex ? getColors(j, word) : ''}`} key={j}>
+                    <div style={{'--color': colors[i][j]}}className='wordlegame--tile' key={j}>
                         <p>{word[j]}</p>
                     </div>
                     )
