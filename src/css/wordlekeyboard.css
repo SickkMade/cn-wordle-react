@@ -1,15 +1,23 @@
 .wordlekeyboard{
     aspect-ratio: 5/2;
     width:500px;
+    margin:auto;
 }
 
 .wordlekeyboard--key{
-    width:9%;
+    width:8%;
     margin:1%;
     border-radius: .25rem;
     aspect-ratio: 2/3;
     background-color: var(--key-bg);
     border:none;
+
+    font: inherit;
+    font-size:.65rem;
+}
+
+.wordlekeyboard--key:hover{
+    cursor:pointer;
 }
 
 .wordlekeyboard--row{

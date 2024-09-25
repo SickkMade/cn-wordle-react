@@ -1,8 +1,5 @@
 body{
   margin:0;
-  font-family: Helvetica, sans-serif;
-  font-weight:bolder;
-  font-size:1.75rem;
 }
 
 :root{
@@ -10,4 +7,8 @@ body{
   --color-correct: #6aaa64;
   --color-present: #c9b458;
   --key-bg: #d3d6da;
+
+  font-family: Helvetica, sans-serif;
+  font-weight:bolder;
+  font-size:1.75rem;
 }

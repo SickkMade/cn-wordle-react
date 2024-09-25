@@ -17,7 +17,8 @@ function WordleKeyboard({addLetter}) {
                     return <button 
                     className="wordlekeyboard--key"
                     onClick={addLetter} 
-                    key={i}>{key}
+                    key={i}>
+                        {key}
                     </button>
                 })}
                 
