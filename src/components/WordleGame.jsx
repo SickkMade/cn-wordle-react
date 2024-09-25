@@ -4,9 +4,15 @@ import '../css/wordlegame.css'
 function WordleGame() {
     const secretWord = 'NINJA'
     const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
-    const [colors, setColors] = useState(Array.from(Array(6), () => Array(secretWord.length).fill('lightgray')))
+    const [colors, setColors] = useState(Array.from(Array(6), () => Array(secretWord.length).fill('var(--color-absent)')))
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isGameOver, setIsGameOver] = useState(false);
     
+
+    const  checkWord = async (word) => {
+        const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+word)
+        return response.status
+    }
 
     useEffect(() => {
         document.addEventListener('keydown', detectKeyDown)
@@ -17,6 +23,7 @@ function WordleGame() {
     }, [guesses])
 
     const detectKeyDown = (event) => {
+        if(isGameOver) return;
         const currentGuess = guesses[currentIndex];
 
         const newGuesses = [...guesses];
@@ -31,30 +38,35 @@ function WordleGame() {
     }
 
     const submitMessage = () => {
-        if(currentIndex >= 6) return;
+        if(currentIndex >= 6 || !checkWord(guesses[currentIndex])) return;
         
         changeColors(currentIndex, guesses[currentIndex])
+        if(guesses[currentIndex] === secretWord){
+            setIsGameOver(true);
+        }
         setCurrentIndex(currentIndex+1);
     }
 
     const changeColors = (rowIndex, guessedWord) => {
-        const usedIndices = new Array(24).fill(0);
-        for(let i = 0; i < secretWord.length; i++) {
-            const letterIndex = secretWord.charCodeAt(i) - 65
-            usedIndices[letterIndex] += 1
+        const letterCount = {};
+        const newColors = [...colors];
+
+        for (let letter of secretWord) {
+            letterCount[letter] = (letterCount[letter] || 0) + 1;
         }
 
-        const newColors = [...colors]
         for(let i = 0; i < newColors[rowIndex].length; i++){
-            const letterIndex = guessedWord.charCodeAt(i) - 65
-
             if(guesses[rowIndex][i] === secretWord[i]){
-                newColors[rowIndex][i] = 'limegreen';
-                usedIndices[letterIndex]--
+                newColors[rowIndex][i] = 'var(--color-correct)';
+                letterCount[guessedWord[i]]--
             }
-            else if(usedIndices[letterIndex] > 0){
-                usedIndices[letterIndex]--
-                newColors[rowIndex][i] = 'yellow';
+        }
+        for(let i = 0; i < newColors[rowIndex].length; i++){
+            if(newColors[i] === 'var(--color-correct)') continue
+
+            if(letterCount[guessedWord[i]] > 0){
+                newColors[rowIndex][i] = 'var(--color-present)';
+                letterCount[guessedWord[i]]--
             }
         }
         setColors(newColors);
@@ -67,7 +79,7 @@ function WordleGame() {
             <div className="wordlegame--div" key={i}>
                 {Array(secretWord.length).fill('').map((_, j) => {
                     return(
-                    <div style={{'--color': colors[i][j]}}className='wordlegame--tile' key={j}>
+                    <div style={{'--color': colors[i][j]}}className={`wordlegame--tile ${i < currentIndex ? 'wordlegame--tile__guessed' : ''}`} key={j}>
                         <p>{word[j]}</p>
                     </div>
                     )

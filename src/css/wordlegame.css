@@ -1,10 +1,13 @@
 .wordlegame--div{
-    width:500px;
+    width:300px;
     display:flex;
+}
+.wordlegame--div p{
+    margin:0;
 }
 
 .wordlegame--tile{
-    width: 15%;
+    width: 20%;
     aspect-ratio: 1;
     border: 2px solid var(--color);
 
@@ -13,10 +16,12 @@
     align-items: center;
     margin:.5%;
 }
-.wordlegame{
-    height:600px;
+.wordlegame--tile__guessed{
+    background-color: var(--color);
+    color:white;
 }
-
-.wordle--game--tile__green{
-    border: 2px solid lime;
+.wordlegame{
+    aspect-ratio: 5/6;
+    margin: auto;
+    width:fit-content;
 }
