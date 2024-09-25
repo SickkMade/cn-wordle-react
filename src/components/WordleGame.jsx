@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import WordleKeyboard from "./WordleKeyboard"
 import '../css/wordlegame.css'
 
 function WordleGame() {
@@ -75,6 +76,7 @@ function WordleGame() {
     }
     
   return (
+    <>
     <section className="wordlegame">
         {guesses.map((word, i) => {
             return (
@@ -98,7 +100,8 @@ function WordleGame() {
             )
         })}
     </section>
-    
+    <WordleKeyboard />
+    </>
   )
 }
 

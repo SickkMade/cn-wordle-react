@@ -1,0 +1,18 @@
+.wordlekeyboard{
+    aspect-ratio: 5/2;
+    width:500px;
+}
+
+.wordlekeyboard--key{
+    width:9%;
+    margin:1%;
+    border-radius: .25rem;
+    aspect-ratio: 2/3;
+    background-color: var(--key-bg);
+    border:none;
+}
+
+.wordlekeyboard--row{
+    display:flex;
+    justify-content: center;
+}
