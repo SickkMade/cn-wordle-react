@@ -110,6 +110,7 @@ function WordleGame() {
                         className={
                             `wordlegame--tile 
                             ${applyAnimations(i, j, word)}
+                            ${word[j] ? 'wordlegame--tile__dark-border' : ''}
                             `} 
                         key={j} 
                     >

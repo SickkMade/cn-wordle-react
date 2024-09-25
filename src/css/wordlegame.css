@@ -37,6 +37,9 @@
     margin: auto;
     width:fit-content;
 }
+.wordlegame--tile__dark-border{
+    border-color:var(--color-absent);
+}
 
 
 @keyframes tilejump {
@@ -67,13 +70,13 @@
     0% {
         transform: rotate3d(-1, 0, 0, 0deg);
         background-color: transparent;
-        border-color: var(--key-bg);
+        border-color: var(--color-absent);
         color: black;
     }
     49.99% {
         transform: rotate3d(-1, 0, 0, 90deg);
         background-color: transparent;
-        border-color: var(--key-bg);
+        border-color: var(--color-absent);
         color: black;
     }
     50% {

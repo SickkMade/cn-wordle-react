@@ -5,11 +5,12 @@
 }
 
 .wordlekeyboard--key{
+    --key-color: var(--key-bg);
     width:8%;
     margin:1%;
     border-radius: .25rem;
     aspect-ratio: 2/3;
-    background-color: var(--key-bg);
+    background-color: var(--key-color);
     border:none;
 
     font: inherit;
