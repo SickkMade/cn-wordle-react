@@ -6,22 +6,66 @@
     margin:0;
 }
 
+.wordlegame--animation{
+    animation: tileflip .5s ease-in forwards;
+}
+.wordlegame--animation__win{
+    animation: tileflip .5s ease-in forwards;
+}
+
 .wordlegame--tile{
     width: 20%;
     aspect-ratio: 1;
-    border: 2px solid var(--color);
+    border: 2px solid var(--color-absent);
 
     display:flex;
     justify-content: center;
     align-items: center;
     margin:.5%;
-}
-.wordlegame--tile__guessed{
-    background-color: var(--color);
-    color:white;
+    animation-delay: calc(var(--animation-order) * 300ms);
 }
 .wordlegame{
     aspect-ratio: 5/6;
     margin: auto;
     width:fit-content;
+}
+
+
+@keyframes tilejump {
+    0%{
+        transform:none;
+    }
+    50%{
+        transform:translateY(-50%);
+    }
+    100%{
+        transform:none;
+    }
+}
+
+@keyframes tileflip {
+    0% {
+        transform: rotate3d(-1, 0, 0, 0deg);
+        background-color: transparent;
+        border-color: var(--color-absent);
+        color: black;
+    }
+    49.99% {
+        transform: rotate3d(-1, 0, 0, 90deg);
+        background-color: transparent;
+        border-color: var(--color-absent);
+        color: black;
+    }
+    50% {
+        transform: rotate3d(-1, 0, 0, 90deg);
+        background-color: var(--color);
+        border-color: var(--color);
+        color: white;
+    }
+    100% {
+        transform: rotate3d(-1, 0, 0, 0deg);
+        background-color: var(--color);
+        border-color: var(--color);
+        color: white;
+    }
 }

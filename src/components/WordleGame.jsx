@@ -44,7 +44,9 @@ function WordleGame() {
         if(guesses[currentIndex] === secretWord){
             setIsGameOver(true);
         }
-        setCurrentIndex(currentIndex+1);
+        else if(currentIndex <= 5){
+            setCurrentIndex(currentIndex+1);
+        }
     }
 
     const changeColors = (rowIndex, guessedWord) => {
@@ -79,7 +81,15 @@ function WordleGame() {
             <div className="wordlegame--div" key={i}>
                 {Array(secretWord.length).fill('').map((_, j) => {
                     return(
-                    <div style={{'--color': colors[i][j]}}className={`wordlegame--tile ${i < currentIndex ? 'wordlegame--tile__guessed' : ''}`} key={j}>
+                    <div 
+                        style={{'--color': colors[i][j], '--animation-order': j}}
+                        className={
+                            `wordlegame--tile 
+                            ${i < currentIndex ? 'wordlegame--animation' : ''}
+                            ${isGameOver && i === currentIndex ? 'wordlegame--animation__win' : ''}
+                            `} 
+                        key={j} 
+                    >
                         <p>{word[j]}</p>
                     </div>
                     )
