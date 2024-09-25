@@ -16,23 +16,27 @@ function WordleGame() {
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', detectKeyDown)
+        document.addEventListener('keydown', keyboardKeyDown)
 
         return () => {
-            document.removeEventListener('keydown', detectKeyDown)
+            document.removeEventListener('keydown', keyboardKeyDown)
         }
     }, [guesses])
 
-    const detectKeyDown = (event) => {
+    const keyboardKeyDown = (event) => {
+        onKeyInput(event.key)
+    } 
+
+    const onKeyInput = (key) => {
         if(isGameOver) return;
         const currentGuess = guesses[currentIndex];
 
         const newGuesses = [...guesses];
-        if(event.key === 'Backspace'){
+        if(key === 'Backspace'){
             newGuesses[currentIndex] = currentGuess.substring(0, currentGuess.length-1);
-        } else if(/^[a-zA-Z]$/.test(event.key) && currentGuess.length < 5){
-            newGuesses[currentIndex] += event.key.toUpperCase();
-        } else if(event.key === 'Enter' && currentGuess.length === 5){
+        } else if(/^[a-zA-Z]$/.test(key) && currentGuess.length < 5){
+            newGuesses[currentIndex] += key.toUpperCase();
+        } else if(key === 'Enter' && currentGuess.length === 5){
             submitMessage()
         }
         setGuesses(newGuesses)
@@ -74,6 +78,11 @@ function WordleGame() {
         }
         setColors(newColors);
     }
+
+    const addLetter = (event) => {
+        let input = event.target.innerText
+        onKeyInput(input);
+    }
     
   return (
     <>
@@ -100,7 +109,7 @@ function WordleGame() {
             )
         })}
     </section>
-    <WordleKeyboard />
+    <WordleKeyboard addLetter={addLetter} />
     </>
   )
 }
