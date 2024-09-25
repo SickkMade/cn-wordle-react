@@ -10,21 +10,27 @@
 
 .wordlegame--animation{
     animation: tileflip .5s ease-in forwards;
+    animation-delay: calc(var(--animation-order) * 300ms);
+
 }
 .wordlegame--animation__win{
     animation: tileflip .5s ease-in forwards;
+    animation-delay: calc(var(--animation-order) * 300ms);
+
+}
+.wordlegame--animation__type{
+    animation: .1s sizeupdown ease-in;
 }
 
 .wordlegame--tile{
     width: 20%;
     aspect-ratio: 1;
-    border: 2px solid var(--color-absent);
+    border: 2px solid var(--key-bg);
 
     display:flex;
     justify-content: center;
     align-items: center;
     margin:.5%;
-    animation-delay: calc(var(--animation-order) * 300ms);
 }
 .wordlegame{
     aspect-ratio: 5/6;
@@ -45,17 +51,29 @@
     }
 }
 
+@keyframes sizeupdown{
+    0%{
+        transform:none;
+    }
+    50%{
+        transform:scale(115%);
+    }
+    100%{
+        transform:none;
+    }
+}
+
 @keyframes tileflip {
     0% {
         transform: rotate3d(-1, 0, 0, 0deg);
         background-color: transparent;
-        border-color: var(--color-absent);
+        border-color: var(--key-bg);
         color: black;
     }
     49.99% {
         transform: rotate3d(-1, 0, 0, 90deg);
         background-color: transparent;
-        border-color: var(--color-absent);
+        border-color: var(--key-bg);
         color: black;
     }
     50% {

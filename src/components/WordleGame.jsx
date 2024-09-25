@@ -29,6 +29,7 @@ function WordleGame() {
 
     const onKeyInput = (key) => {
         if(isGameOver) return;
+
         const currentGuess = guesses[currentIndex];
 
         const newGuesses = [...guesses];
@@ -83,6 +84,18 @@ function WordleGame() {
         let input = event.target.innerText
         onKeyInput(input);
     }
+
+    const applyAnimations = (i, j, word) => {
+        if( i < currentIndex ){
+            return 'wordlegame--animation'
+        }
+        if(isGameOver && i === currentIndex){
+            return 'wordlegame--animation'
+        }
+        if(word.length > j && i >= currentIndex){
+            return 'wordlegame--animation__type'
+        }
+    }
     
   return (
     <>
@@ -96,8 +109,7 @@ function WordleGame() {
                         style={{'--color': colors[i][j], '--animation-order': j}}
                         className={
                             `wordlegame--tile 
-                            ${i < currentIndex ? 'wordlegame--animation' : ''}
-                            ${isGameOver && i === currentIndex ? 'wordlegame--animation__win' : ''}
+                            ${applyAnimations(i, j, word)}
                             `} 
                         key={j} 
                     >
