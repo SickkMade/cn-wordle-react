@@ -1,5 +1,4 @@
 import FullScreenComponent from "./FullScreenComponent"
-import PropTypes from "prop-types"
 
 //prop drilling :sob: i always think it wont grow to the point ot add context yet i suprise myself everytime
 function EndGameScreen() {
