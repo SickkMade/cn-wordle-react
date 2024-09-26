@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react"
+import EndGameScreen from "./EndGameScreen"
 import WordleKeyboard from "./WordleKeyboard"
 import '../css/wordlegame.css'
 import words from '../json/words.json'
 import correctwords from '../json/correctwords.json'
 
+//thought it would be a day project so i didnt plan extra componenets
+//it turned into a 3 day project and its so ugly please dont look
 function WordleGame() {
     const day = new Date();
     const secretWord = correctwords[day.getDay()-1];
@@ -125,6 +128,7 @@ function WordleGame() {
     
   return (
     <>
+    {isGameOver && <EndGameScreen isActive={isGameOver}/>}
     <section className="wordlegame">
         {guesses.map((word, i) => {
             return (

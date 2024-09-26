@@ -1,0 +1,45 @@
+.fullscreen__invisible{
+    opacity: 0;
+}
+
+.fullscreen{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100dvh;
+    background-color:white;
+    opacity:0;
+    animation: .25s appear 3s forwards;
+    z-index: 1000;
+}
+
+.fullscreen--close{
+    position:absolute;
+    top:10%;
+    right:10%;
+    width:2rem;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border: none;
+}
+
+.fullscreen--close:hover{
+    cursor:pointer;
+    filter:brightness(95%);
+}
+
+.fullscreen--close:active{
+    filter:brightness(90%);
+}
+
+@keyframes appear {
+    from{
+        transform: translateY(100%);
+        opacity:0;
+    }
+    to{
+        transform: translateX(0);
+        opacity:1;
+    }
+}
