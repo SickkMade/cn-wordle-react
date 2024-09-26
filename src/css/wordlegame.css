@@ -113,3 +113,9 @@
         color: white;
     }
 }
+
+@media (max-width: 500px) {
+    .wordlegame--div{
+        width:75vw;
+    }
+}

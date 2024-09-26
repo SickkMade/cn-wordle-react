@@ -49,3 +49,9 @@
       color:white;
     }
 }
+
+@media (max-width: 500px) {
+    .wordlekeyboard{
+        width:100vw;
+    }
+}
