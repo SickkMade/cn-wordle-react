@@ -1,12 +1,24 @@
 import '../css/wordlekeyboard.css'
 import PropTypes from 'prop-types';
 
-function WordleKeyboard({addLetter}) {
+function WordleKeyboard({addLetter, yellowWords, greyWords, greenWords}) {
     const keys = [
         ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
         ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
         ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace'],
       ];
+
+      const getColor = (letter) => {
+        if(greenWords.includes(letter)){
+            return 'wordlekeyboard--key__green'
+        }
+        else if(yellowWords.includes(letter)){
+            return 'wordlekeyboard--key__yellow'
+        }
+        else if(greyWords.includes(letter)){
+            return 'wordlekeyboard--key__grey'
+        }
+      }
 
   return (
     <div className='wordlekeyboard'>
@@ -15,7 +27,7 @@ function WordleKeyboard({addLetter}) {
             <div className="wordlekeyboard--row" key={i}>
                 {keyarray.map((key,i) => {
                     return <button 
-                    className="wordlekeyboard--key"
+                    className={`wordlekeyboard--key ${getColor(key)}`}
                     onClick={addLetter} 
                     key={i}>
                         {key}
@@ -31,6 +43,9 @@ function WordleKeyboard({addLetter}) {
 
 WordleKeyboard.propTypes = {
     addLetter: PropTypes.func,
+    yellowWords: PropTypes.array,
+    greenWords: PropTypes.array,
+    greyWords: PropTypes.array,
 }
 
 export default WordleKeyboard

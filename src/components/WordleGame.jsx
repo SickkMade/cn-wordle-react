@@ -6,8 +6,12 @@ import correctwords from '../json/correctwords.json'
 
 function WordleGame() {
     const day = new Date();
-    const secretWord = correctwords[day.getDay()];
+    const secretWord = correctwords[day.getDay()-1];
     const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
+    //these three extra states are so emberassing...
+    const [yellowWords, setYellowWords] = useState([]);
+    const [greenWords, setGreenWords] = useState([]);
+    const [greyWords, setGreyWords] = useState([]);
     const [colors, setColors] = useState(Array.from(Array(6), () => Array(secretWord.length).fill('var(--color-absent)')))
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isGameOver, setIsGameOver] = useState(false);
@@ -69,6 +73,9 @@ function WordleGame() {
     const changeColors = (rowIndex, guessedWord) => {
         const letterCount = {};
         const newColors = [...colors];
+        const newGrey = [...greyWords]
+        const newGreen = [...greenWords]
+        const newYellow = [...yellowWords]
 
         for (let letter of secretWord) {
             letterCount[letter] = (letterCount[letter] || 0) + 1;
@@ -78,6 +85,8 @@ function WordleGame() {
             if(guesses[rowIndex][i] === secretWord[i]){
                 newColors[rowIndex][i] = 'var(--color-correct)';
                 letterCount[guessedWord[i]]--
+
+                newGreen.push(guessedWord[i]);
             }
         }
         for(let i = 0; i < newColors[rowIndex].length; i++){
@@ -85,8 +94,15 @@ function WordleGame() {
             else if(letterCount[guessedWord[i]] > 0){
                 newColors[rowIndex][i] = 'var(--color-present)';
                 letterCount[guessedWord[i]]--
+                
+                newYellow.push(guessedWord[i]);
+            } else{
+                newGrey.push(guessedWord[i]);
             }
         }
+        setGreenWords(newGreen);
+        setYellowWords(newYellow);
+        setGreyWords(newGrey);
         setColors(newColors);
     }
 
@@ -132,7 +148,7 @@ function WordleGame() {
             )
         })}
     </section>
-    <WordleKeyboard addLetter={addLetter} />
+    <WordleKeyboard addLetter={addLetter} yellowWords={yellowWords} greyWords={greyWords} greenWords={greenWords} />
     </>
   )
 }

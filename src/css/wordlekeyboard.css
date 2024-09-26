@@ -10,11 +10,26 @@
     margin:1%;
     border-radius: .25rem;
     aspect-ratio: 2/3;
-    background-color: var(--key-color);
+    background-color: var(--key-bg);
     border:none;
 
     font: inherit;
     font-size:.65rem;
+}
+
+.wordlekeyboard--key__yellow{
+    --key-color: var(--color-present);
+    animation: .1s delayedEffect 1700ms forwards;
+}
+
+.wordlekeyboard--key__green{
+    --key-color: var(--color-correct);
+    animation: .1s delayedEffect 1700ms forwards;
+}
+
+.wordlekeyboard--key__grey{
+    --key-color: var(--color-absent);
+    animation: .1s delayedEffect 1700ms forwards;
 }
 
 .wordlekeyboard--key:hover{
@@ -24,4 +39,13 @@
 .wordlekeyboard--row{
     display:flex;
     justify-content: center;
+}
+
+@keyframes delayedEffect {
+    0% {
+    }
+    100% {
+      background-color: var(--key-color);
+      color:white;
+    }
 }
