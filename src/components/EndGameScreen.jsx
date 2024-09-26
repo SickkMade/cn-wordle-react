@@ -10,6 +10,8 @@ function EndGameScreen() {
         <h4>You beat codeninjas wordle on {date.getMonth()}/{date.getDate()} </h4>
         <p>Come back tommorrow for more :)</p>
         <button className="app--button__main"><span>Share </span><Share2 /></button>
+        <img src="mai.WTF.jpg"></img>
+        <img src="codeninjamylove.jpeg"></img>
     </FullScreenComponent>
   )
 }
