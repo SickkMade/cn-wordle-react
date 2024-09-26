@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react"
 import WordleKeyboard from "./WordleKeyboard"
 import '../css/wordlegame.css'
+import words from '../json/words.json'
+import correctwords from '../json/correctwords.json'
 
 function WordleGame() {
-    const secretWord = 'NINJA'
+    const day = new Date();
+    const secretWord = correctwords[day.getDay()-1];
+    console.log(secretWord)
     const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
     const [colors, setColors] = useState(Array.from(Array(6), () => Array(secretWord.length).fill('var(--color-absent)')))
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isGameOver, setIsGameOver] = useState(false);
-    
-
-    const  checkWord = async (word) => {
-        const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+word)
-        return response.status
-    }
+    const [shake, setShake] = useState(false);
 
     useEffect(() => {
         document.addEventListener('keydown', keyboardKeyDown)
@@ -37,14 +36,27 @@ function WordleGame() {
             newGuesses[currentIndex] = currentGuess.substring(0, currentGuess.length-1);
         } else if(/^[a-zA-Z]$/.test(key) && currentGuess.length < 5){
             newGuesses[currentIndex] += key.toUpperCase();
-        } else if(key === 'Enter' && currentGuess.length === 5){
+        } else if(key === 'Enter'){
+            if(currentGuess.length != 5) {
+                shakeRow()
+                return;
+            }
             submitMessage()
         }
         setGuesses(newGuesses)
     }
 
+    const shakeRow = () => {
+        setShake(true);
+        setTimeout(() => setShake(false), 500)
+    }
+
     const submitMessage = () => {
-        if(currentIndex >= 6 || !checkWord(guesses[currentIndex])) return;
+        if(currentIndex >= 6) return;
+        if(!words.includes(guesses[currentIndex].toLowerCase())){
+            shakeRow();
+            return;
+        } 
         
         changeColors(currentIndex, guesses[currentIndex])
         if(guesses[currentIndex] === secretWord){
@@ -102,7 +114,7 @@ function WordleGame() {
     <section className="wordlegame">
         {guesses.map((word, i) => {
             return (
-            <div className="wordlegame--div" key={i}>
+            <div className={`wordlegame--div ${shake && i === currentIndex ? 'wordlegame--div__invalid-animation' : ''}`} key={i}>
                 {Array(secretWord.length).fill('').map((_, j) => {
                     return(
                     <div 
