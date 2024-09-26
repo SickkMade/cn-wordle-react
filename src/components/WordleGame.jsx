@@ -6,8 +6,7 @@ import correctwords from '../json/correctwords.json'
 
 function WordleGame() {
     const day = new Date();
-    const secretWord = correctwords[day.getDay()-1];
-    console.log(secretWord)
+    const secretWord = correctwords[day.getDay()];
     const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
     const [colors, setColors] = useState(Array.from(Array(6), () => Array(secretWord.length).fill('var(--color-absent)')))
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -82,9 +81,8 @@ function WordleGame() {
             }
         }
         for(let i = 0; i < newColors[rowIndex].length; i++){
-            if(newColors[i] === 'var(--color-correct)') continue
-
-            if(letterCount[guessedWord[i]] > 0){
+            if(newColors[rowIndex][i] === 'var(--color-correct)') continue
+            else if(letterCount[guessedWord[i]] > 0){
                 newColors[rowIndex][i] = 'var(--color-present)';
                 letterCount[guessedWord[i]]--
             }
