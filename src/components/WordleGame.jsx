@@ -8,6 +8,7 @@ import correctwords from '../json/correctwords.json'
 //thought it would be a day project so i didnt plan extra componenets
 //it turned into a 3 day project and its so ugly please dont look
 function WordleGame() {
+    const colorMap = {'var(--color-absent)': '⬜', 'var(--color-correct)': '🟩', 'var(--color-present)': '🟨' }
     const day = new Date();
     const secretWord = correctwords[day.getDay()-1];
     const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
@@ -19,6 +20,7 @@ function WordleGame() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isGameOver, setIsGameOver] = useState(false);
     const [shake, setShake] = useState(false);
+    const [copyValue, setCopyValue] = useState("");
 
     useEffect(() => {
         document.addEventListener('keydown', keyboardKeyDown)
@@ -66,11 +68,25 @@ function WordleGame() {
         
         changeColors(currentIndex, guesses[currentIndex])
         if(guesses[currentIndex] === secretWord){
-            setIsGameOver(true);
+            gameOverFunction();
         }
         else if(currentIndex <= 5){
             setCurrentIndex(currentIndex+1);
         }
+    }
+
+    const gameOverFunction = () => {
+        let temp = "CODENINJA WORDLE -- " + currentIndex + " /6\n\n"
+        colors.forEach((row, i) => {
+            if(i <= currentIndex){
+                row.forEach((col) => {
+                    temp += colorMap[col]
+                })
+                temp += '\n'
+            }
+        })
+        setCopyValue(temp)
+        setIsGameOver(true);
     }
 
     const changeColors = (rowIndex, guessedWord) => {
@@ -128,7 +144,7 @@ function WordleGame() {
     
   return (
     <>
-    {isGameOver && <EndGameScreen isActive={isGameOver}/>}
+    {isGameOver && <EndGameScreen isActive={isGameOver} copyValue={copyValue}/>}
     <section className="wordlegame">
         {guesses.map((word, i) => {
             return (
