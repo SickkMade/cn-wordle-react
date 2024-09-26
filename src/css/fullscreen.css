@@ -14,6 +14,16 @@
     animation: .25s appear 3s forwards;
     z-index: 1000;
 }
+.fullscreen--container{
+    display:flex;
+    flex-flow: column nowrap;
+    width:75%;
+    height:100%;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    position:relative;
+}
 
 .fullscreen--close{
     position:absolute;
@@ -34,6 +44,28 @@
     filter:brightness(90%);
 }
 
+
+/* text */
+.fullscreen p{
+    font-size:medium;
+    font-weight:400;
+    margin-top:1%;
+}
+.fullscreen h4{
+    font-size:large;
+}
+.fullscreen h1{
+    margin-bottom:5%;
+}
+.fullscreen button{
+    margin-top:3%;
+}
+.fullscreen--container > * {
+    margin:0;
+}
+
+
+/* animations */
 @keyframes appear {
     from{
         transform: translateY(100%);
@@ -44,3 +76,4 @@
         opacity:1;
     }
 }
+

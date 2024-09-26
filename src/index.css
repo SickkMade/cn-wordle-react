@@ -12,3 +12,22 @@ body{
   font-weight:bolder;
   font-size:1.75rem;
 }
+
+.app--button__main{
+  background-color:var(--color-correct);
+  padding:1% 2%;
+  aspect-ratio: 4 / 1;
+  color:white;
+  border:var(--color-correct);
+  font-size:.75rem;
+  border-radius:1rem;
+  display:flex;
+  justify-content:center;
+  gap:.25rem;
+}
+.app--button__main > *{
+  margin:0;
+}
+.app--button__main:hover{
+  cursor:pointer;
+}
