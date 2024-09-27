@@ -145,12 +145,12 @@
 
 @media (max-width: 500px) {
     .wordlegame--div{
-        width:50vw;
+        width:65vw;
     }
 }
 
 @media (max-width: 400px) {
     .wordlegame--div{
-        width:70vw;
+        width:90vw;
     }
 }
