@@ -15,6 +15,7 @@
 
     font: inherit;
     font-size:.65rem;
+    overflow:hidden;
 }
 
 .wordlekeyboard--key__yellow{
