@@ -114,7 +114,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 450px) {
     .wordlegame--div{
         width:75vw;
     }

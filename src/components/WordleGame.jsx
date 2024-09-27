@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useRef } from "react"
 import EndGameScreen from "./EndGameScreen"
 import WordleKeyboard from "./WordleKeyboard"
 import '../css/wordlegame.css'
@@ -9,8 +9,8 @@ import correctwords from '../json/correctwords.json'
 //it turned into a 3 day project and its so ugly please dont look
 function WordleGame() {
     const colorMap = {'var(--color-absent)': '⬜', 'var(--color-correct)': '🟩', 'var(--color-present)': '🟨' }
-    const day = new Date();
-    const secretWord = correctwords[day.getDay()-1];
+    let day = useMemo(() => new Date(), []);
+    const secretWord = correctwords[day.getDate()-1];
     const [guesses, setGuesses] = useState(Array.from(Array(6), () => ''))
     //these three extra states are so emberassing...
     const [yellowWords, setYellowWords] = useState([]);
@@ -21,6 +21,39 @@ function WordleGame() {
     const [isGameOver, setIsGameOver] = useState(false);
     const [shake, setShake] = useState(false);
     const [copyValue, setCopyValue] = useState("");
+    const isInitialMount = useRef(true);
+
+    useEffect(() => {
+        const gameState = JSON.parse(localStorage.getItem('wordle--gamestate'));
+        if(gameState && gameState.day === day.getDate()){
+            if(!gameState.isGameOver) gameState.guesses[gameState.currentIndex] = ''
+            setGuesses(gameState.guesses)
+            setYellowWords(gameState.yellowWords)
+            setGreenWords(gameState.greenWords)
+            setGreyWords(gameState.greyWords)
+            setColors(gameState.colors)
+            setCurrentIndex(gameState.currentIndex)
+            setIsGameOver(gameState.isGameOver)
+        }
+    }, [])
+
+    useEffect(() => {
+        if(isInitialMount.current) isInitialMount.current = false;
+        else{
+            const gameState = {
+                day: day.getDate(),
+                guesses,
+                yellowWords,
+                greenWords,
+                greyWords,
+                colors,
+                currentIndex,
+                isGameOver,
+            }
+            localStorage.setItem('wordle--gamestate', JSON.stringify(gameState))
+        }
+        
+    }, [day, guesses, yellowWords, greenWords, greyWords, colors, currentIndex, isGameOver])
 
     useEffect(() => {
         document.addEventListener('keydown', keyboardKeyDown)
@@ -76,7 +109,7 @@ function WordleGame() {
     }
 
     const gameOverFunction = () => {
-        let temp = "CODENINJA WORDLE -- " + currentIndex + " /6\n\n"
+        let temp = "CODENINJA WORDLE -- " + (currentIndex+1) + " /6\n\n"
         colors.forEach((row, i) => {
             if(i <= currentIndex){
                 row.forEach((col) => {
@@ -174,3 +207,4 @@ function WordleGame() {
 }
 
 export default WordleGame
+
