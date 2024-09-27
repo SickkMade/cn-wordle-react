@@ -18,6 +18,7 @@ function WordleKeyboard({addLetter, yellowWords, greyWords, greenWords}) {
         else if(greyWords.includes(letter)){
             return 'wordlekeyboard--key__grey'
         }
+        else return '';
       }
 
   return (
@@ -28,7 +29,7 @@ function WordleKeyboard({addLetter, yellowWords, greyWords, greenWords}) {
                 {keyarray.map((key,i) => {
                     return <button 
                     className={`wordlekeyboard--key ${getColor(key)}`}
-                    onClick={addLetter} 
+                    onClick={addLetter}
                     key={i}>
                         {key}
                     </button>

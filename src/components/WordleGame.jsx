@@ -217,7 +217,7 @@ function WordleGame() {
     }
     
   return (
-    <>
+    <div onTouchStart={() => {}} onTouchEnd={() => {}} onTouchCancel={() => {}} onTouchMove={() => {}}>
     {isGameOver && <img className="wordlegame--img-win" src="codeninjamylove.jpeg"></img>}
     {isGameOver && <EndGameScreen addTempPopup={addTempPopup} copyValue={copyValue}/>}
     <HolderOfPopups popups={popups}/>
@@ -245,7 +245,7 @@ function WordleGame() {
         })}
     </section>
     <WordleKeyboard addLetter={addLetter} yellowWords={yellowWords} greyWords={greyWords} greenWords={greenWords} />
-    </>
+    </div>
   )
 }
 

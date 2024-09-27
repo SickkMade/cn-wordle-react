@@ -16,7 +16,10 @@
     font: inherit;
     font-size:.65rem;
     overflow:hidden;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
 }
 
 .wordlekeyboard--key__yellow{
@@ -52,8 +55,16 @@
     }
 }
 
+
 @media (max-width: 500px) {
     .wordlekeyboard{
-        width:75vw;
+        width:100vw;
+    }
+}
+@media (max-width: 500px) {
+    @supports (-webkit-touch-callout: none){
+        .wordlekeyboard{
+            width:65vw;
+        }
     }
 }
