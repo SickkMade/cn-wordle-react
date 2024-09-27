@@ -28,7 +28,11 @@ function WordleKeyboard({addLetter, yellowWords, greyWords, greenWords}) {
             <div className="wordlekeyboard--row" key={i}>
                 {keyarray.map((key,i) => {
                     return <div 
-                    className={`wordlekeyboard--key ${getColor(key)}`}
+                    className={`
+                            wordlekeyboard--key 
+                            ${key ==='Enter' || key ==='Backspace' ? 'wordlekeyboard--key__wide' : ''}    
+                            ${getColor(key)}
+                        `}
                     onClick={addLetter}
                     key={i}>
                         {key}

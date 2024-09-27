@@ -46,6 +46,8 @@
     justify-content: center;
 }
 
+
+
 @keyframes delayedEffect {
     0% {
     }
@@ -62,6 +64,11 @@
         aspect-ratio: 5/3;
     }
     .wordlekeyboard--key{
-        aspect-ratio:1/2;
+        aspect-ratio:4/7;
     }
+}
+
+.wordlekeyboard--key__wide{
+    width:18%;
+    aspect-ratio:3/2;
 }
