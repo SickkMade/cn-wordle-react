@@ -59,5 +59,9 @@
 @media (max-width: 500px) {
     .wordlekeyboard{
         width:100vw;
+        aspect-ratio: 5/3;
+    }
+    .wordlekeyboard--key{
+        aspect-ratio:1/2;
     }
 }
