@@ -149,15 +149,16 @@ function WordleGame() {
     }
 
     const gameOverFunction = () => {
-        let temp = "CODENINJA WORDLE -- " + (currentIndex+1) + " /6\n\n"
+        let temp = "CODENINJA WORDLE -- " + (currentIndex+1) + " /6\n"
         colors.forEach((row, i) => {
+            temp += '\n'
             if(i <= currentIndex){
                 row.forEach((col) => {
                     temp += colorMap[col]
                 })
-                temp += '\n'
             }
         })
+        temp += "\nhttps://sickkmade.github.io/cn-wordle-react/"
         setCopyValue(temp)
         setIsGameOver(true);
     }
