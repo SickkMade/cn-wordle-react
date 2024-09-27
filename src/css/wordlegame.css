@@ -45,6 +45,17 @@
     border-color:var(--color-absent);
 }
 
+.wordlegame--img-win{
+    position: absolute;
+    aspect-ratio: 1/1;
+    width:25%;
+    opacity:0;
+    animation: ninja 2s 1.5s;
+    top:25%;
+    left:0;
+    z-index: 2;
+}
+
 @keyframes rowshake {
     10%, 90% {
       transform: translate3d(-1px, 0, 0);
@@ -113,6 +124,23 @@
         color: white;
     }
 }
+
+@keyframes ninja {
+    0% {
+      transform: translateX(100vw) rotate(0deg);
+      opacity: 1;
+    }
+    20% {
+      transform: translateX(50vw) rotate(360deg);
+    }
+    50% {
+      transform: translateX(50vw) translateY(-10px) rotate(360deg);
+    }
+    100% {
+      transform: translateX(100vw) translateY(0) rotate(360deg);
+      opacity: 1;
+    }
+  }
 
 @media (max-width: 450px) {
     .wordlegame--div{

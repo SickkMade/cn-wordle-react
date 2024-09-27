@@ -51,7 +51,6 @@ function WordleGame() {
     }, [])
 
     useEffect(() => {
-        if(new Date() - day <= 1000) return;
         const gameState = {
             day: day.getDate(),
             guesses,
@@ -102,6 +101,7 @@ function WordleGame() {
 
     const onKeyInput = (key) => {
         if(isGameOver || isGameLost) return;
+        if(new Date() - day <= 500) return;
 
         const currentGuess = guesses[currentIndex];
 
@@ -143,9 +143,9 @@ function WordleGame() {
         if(guesses[currentIndex] === secretWord){
             gameOverFunction();
         }
-        if(currentIndex < 5){
+        else if(currentIndex < 5){
             setCurrentIndex(currentIndex+1);
-        } //test
+        } 
     }
 
     const gameOverFunction = () => {
@@ -217,6 +217,7 @@ function WordleGame() {
     
   return (
     <>
+    {isGameOver && <img className="wordlegame--img-win" src="codeninjamylove.jpeg"></img>}
     {isGameOver && <EndGameScreen addTempPopup={addTempPopup} copyValue={copyValue}/>}
     <HolderOfPopups popups={popups}/>
     <section className="wordlegame">
