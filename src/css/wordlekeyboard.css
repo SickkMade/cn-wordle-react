@@ -58,13 +58,13 @@
 
 @media (max-width: 500px) {
     .wordlekeyboard{
-        width:100vw;
+        width:90vw;
     }
 }
 @media (max-width: 500px) {
     @supports (-webkit-touch-callout: none){
         .wordlekeyboard{
-            width:65vw;
+            width:50vw;
         }
     }
 }

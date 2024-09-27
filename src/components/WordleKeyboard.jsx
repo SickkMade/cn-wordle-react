@@ -27,12 +27,12 @@ function WordleKeyboard({addLetter, yellowWords, greyWords, greenWords}) {
             return(
             <div className="wordlekeyboard--row" key={i}>
                 {keyarray.map((key,i) => {
-                    return <button 
+                    return <div 
                     className={`wordlekeyboard--key ${getColor(key)}`}
                     onClick={addLetter}
                     key={i}>
                         {key}
-                    </button>
+                    </div>
                 })}
                 
             </div>
