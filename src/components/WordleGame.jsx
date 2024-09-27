@@ -155,9 +155,10 @@ function WordleGame() {
                 row.forEach((col) => {
                     temp += colorMap[col]
                 })
+                temp += '\n'
             }
         })
-        temp += "\nhttps://sickkmade.github.io/cn-wordle-react/"
+        temp += "https://sickkmade.github.io/cn-wordle-react/"
         setCopyValue(temp)
         setIsGameOver(true);
     }
