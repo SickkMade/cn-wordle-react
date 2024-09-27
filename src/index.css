@@ -6,6 +6,10 @@ body{
   height:100dvh;
 }
 
+body > button{
+  color:black;
+}
+
 :root{
   --color-absent: #787c7e;
   --color-correct: #6aaa64;
