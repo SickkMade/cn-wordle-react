@@ -1,12 +1,12 @@
 [
-    "NINJA", "BRUNO", "KEVIN", "ARRAY", "LOGIC", "BLOCK", "LOOPS", "INPUT", 
+    "FLAGS", "BRUNO", "MACRO", "ARRAY", "LOGIC", "BLOCK", "LOOPS", "INPUT", 
     "SCOPE", "REACT", "DEBUG", 
     "BYTES", "CLASS",
-    "PRINT", "WHILE", "CLICK", "MACRO", 
+    "FLAGS", "ETHAN", "CLICK", "KEVIN", 
     "INDEX", 
     "FLOAT", "ALERT",
-    "HASHS", "SLICE", "FLAGS", 
+    "HASHS", "SLICE", "PRINT", 
     "HOOKS", "NODES", 
     "LOCAL",  
-    "PRINT", "ETHAN", "BRIAN", "SWITCH", "QUEUE"
+    "NINJA", "WHILE", "BRIAN", "SWITCH", "QUEUE"
 ]
