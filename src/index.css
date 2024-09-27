@@ -4,9 +4,10 @@ body{
   justify-content: center;
   align-items: center;
   height:100dvh;
+  overflow:hidden;
 }
 
-body > button{
+body button{
   color:black;
 }
 

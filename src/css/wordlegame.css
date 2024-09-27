@@ -142,8 +142,14 @@
     }
   }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
     .wordlegame--div{
-        width:75vw;
+        width:65vw;
+    }
+}
+
+@media (max-width: 400px) {
+    .wordlegame--div{
+        width:90vw;
     }
 }
