@@ -22,7 +22,7 @@ body{
 .app--button__main{
   background-color:var(--color-correct);
   padding:.25rem .5rem;
-  aspect-ratio: 4 / 1;
+  aspect-ratio: 4 / 1.35;
   color:white;
   border:var(--color-correct);
   font-size:.75rem;
