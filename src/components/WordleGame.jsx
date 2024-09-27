@@ -1,9 +1,10 @@
-import { useState, useEffect, useMemo, useRef } from "react"
+import { useState, useEffect, useMemo } from "react"
 import EndGameScreen from "./EndGameScreen"
 import WordleKeyboard from "./WordleKeyboard"
 import '../css/wordlegame.css'
 import words from '../json/words.json'
 import correctwords from '../json/correctwords.json'
+import HolderOfPopups from "./HolderOfPopups"
 
 //thought it would be a day project so i didnt plan extra componenets
 //it turned into a 3 day project and its so ugly please dont look
@@ -21,12 +22,22 @@ function WordleGame() {
     const [isGameOver, setIsGameOver] = useState(false);
     const [shake, setShake] = useState(false);
     const [copyValue, setCopyValue] = useState("");
-    const isInitialMount = useRef(true);
+
+
+    const [isGameLost, setIsGameLost] = useState(false);
+
+    //its official im ending it all because of how shit this is
+    //most hacky soultion. i would say a store but at this point
+    //i jsut need planning :sob:
+    const [popups, setPopups] = useState([])
+
 
     useEffect(() => {
+
         const gameState = JSON.parse(localStorage.getItem('wordle--gamestate'));
         if(gameState && gameState.day === day.getDate()){
-            if(!gameState.isGameOver) gameState.guesses[gameState.currentIndex] = ''
+            if(!gameState.isGameOver && !gameState.isGameLost) gameState.guesses[gameState.currentIndex] = ''
+            if(gameState.isGameLost) addPopUp(secretWord);
             setGuesses(gameState.guesses)
             setYellowWords(gameState.yellowWords)
             setGreenWords(gameState.greenWords)
@@ -35,27 +46,27 @@ function WordleGame() {
             setCurrentIndex(gameState.currentIndex)
             setIsGameOver(gameState.isGameOver)
             setCopyValue(gameState.copyValue)
+            setIsGameLost(gameState.isGameLost)
         }
     }, [])
 
     useEffect(() => {
-        if(isInitialMount.current) isInitialMount.current = false;
-        else{
-            const gameState = {
-                day: day.getDate(),
-                guesses,
-                yellowWords,
-                greenWords,
-                greyWords,
-                colors,
-                currentIndex,
-                isGameOver,
-                copyValue,
-            }
-            localStorage.setItem('wordle--gamestate', JSON.stringify(gameState))
+        if(new Date() - day <= 1000) return;
+        const gameState = {
+            day: day.getDate(),
+            guesses,
+            yellowWords,
+            greenWords,
+            greyWords,
+            colors,
+            currentIndex,
+            isGameOver,
+            copyValue,
+            isGameLost,
         }
+        localStorage.setItem('wordle--gamestate', JSON.stringify(gameState))
         
-    }, [day, guesses, yellowWords, greenWords, greyWords, colors, currentIndex, isGameOver, copyValue])
+    }, [day, guesses, yellowWords, greenWords, greyWords, colors, currentIndex, isGameOver, copyValue, isGameLost])
 
     useEffect(() => {
         document.addEventListener('keydown', keyboardKeyDown)
@@ -65,12 +76,32 @@ function WordleGame() {
         }
     }, [guesses])
 
+    const addTempPopup = (message) => {
+        const newPopup = {
+            message,
+            id: Date.now(),
+        }
+        setPopups(lastarr => [...lastarr, newPopup])
+        setTimeout(() => removePopup(newPopup.id), 1500)
+    }
+    const addPopUp = (message) => {
+        const newPopup = {
+            message,
+            id: Date.now(),
+        }
+        setPopups(lastarr => [...lastarr, newPopup])
+    }
+
+    const removePopup = (id) => {
+        setPopups(lastarr => lastarr.filter(m => m.id!==id))
+    }
+
     const keyboardKeyDown = (event) => {
         onKeyInput(event.key)
     } 
 
     const onKeyInput = (key) => {
-        if(isGameOver) return;
+        if(isGameOver || isGameLost) return;
 
         const currentGuess = guesses[currentIndex];
 
@@ -81,7 +112,8 @@ function WordleGame() {
             newGuesses[currentIndex] += key.toUpperCase();
         } else if(key === 'Enter'){
             if(currentGuess.length != 5) {
-                shakeRow()
+                shakeRow();
+                addTempPopup("Not Enough Letters")
                 return;
             }
             submitMessage()
@@ -95,19 +127,25 @@ function WordleGame() {
     }
 
     const submitMessage = () => {
-        if(currentIndex >= 6) return;
+        
         if(!words.includes(guesses[currentIndex].toLowerCase())){
             shakeRow();
+            addTempPopup("Invalid Word");
             return;
-        } 
+        } else if(currentIndex === 5){
+            if(guesses[5] != secretWord){
+                setIsGameLost(true);
+                addPopUp(secretWord);
+            }
+        }
         
         changeColors(currentIndex, guesses[currentIndex])
         if(guesses[currentIndex] === secretWord){
             gameOverFunction();
         }
-        else if(currentIndex <= 5){
+        if(currentIndex < 5){
             setCurrentIndex(currentIndex+1);
-        }
+        } //test
     }
 
     const gameOverFunction = () => {
@@ -169,7 +207,7 @@ function WordleGame() {
         if( i < currentIndex ){
             return 'wordlegame--animation'
         }
-        if(isGameOver && i === currentIndex){
+        if( (isGameOver || isGameLost) && i === currentIndex){
             return 'wordlegame--animation'
         }
         if(word.length > j && i >= currentIndex){
@@ -179,7 +217,8 @@ function WordleGame() {
     
   return (
     <>
-    {isGameOver && <EndGameScreen isActive={isGameOver} copyValue={copyValue}/>}
+    {isGameOver && <EndGameScreen addTempPopup={addTempPopup} copyValue={copyValue}/>}
+    <HolderOfPopups popups={popups}/>
     <section className="wordlegame">
         {guesses.map((word, i) => {
             return (

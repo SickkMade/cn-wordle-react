@@ -1,0 +1,20 @@
+.popup{
+    padding: .5rem;
+    background-color: rgba(0, 0, 0);
+    color:white;
+    width:fit-content;
+    font-size:.6rem;
+    border-radius:.35em;
+    margin:auto;
+}
+
+.popups--holder{
+    position:absolute;
+    left:50%;
+    top:0;
+    height:100%;
+    width:50%;
+    transform:translateX(-50%);
+    z-index: 2;
+    pointer-events: none;
+}
