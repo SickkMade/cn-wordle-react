@@ -60,15 +60,19 @@
 
 @media (max-width: 500px) {
     .wordlekeyboard{
+        aspect-ratio: auto;
         width:100vw;
-        aspect-ratio: 5/3;
+        height:33dvh
     }
     .wordlekeyboard--key{
-        aspect-ratio:4/7;
+        aspect-ratio:auto;
+        height:10vh;
+        margin:.5%;
     }
 }
 
 .wordlekeyboard--key__wide{
     width:18%;
-    aspect-ratio:3/2;
+    aspect-ratio:auto;
+    font-size: .5em;
 }
