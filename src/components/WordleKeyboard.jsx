@@ -29,7 +29,6 @@ function WordleKeyboard({addLetter, yellowWords, greyWords, greenWords}) {
                     return <button 
                     className={`wordlekeyboard--key ${getColor(key)}`}
                     onClick={addLetter} 
-                    onTouchStart={addLetter}
                     key={i}>
                         {key}
                     </button>
