@@ -151,8 +151,8 @@ function WordleGame() {
     const gameOverFunction = () => {
         let temp = "CODENINJA WORDLE -- " + (currentIndex+1) + " /6\n"
         colors.forEach((row, i) => {
-            temp += '\n'
             if(i <= currentIndex){
+                temp += '\n'
                 row.forEach((col) => {
                     temp += colorMap[col]
                 })
