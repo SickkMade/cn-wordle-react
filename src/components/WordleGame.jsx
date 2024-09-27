@@ -34,6 +34,7 @@ function WordleGame() {
             setColors(gameState.colors)
             setCurrentIndex(gameState.currentIndex)
             setIsGameOver(gameState.isGameOver)
+            setCopyValue(gameState.copyValue)
         }
     }, [])
 
@@ -49,11 +50,12 @@ function WordleGame() {
                 colors,
                 currentIndex,
                 isGameOver,
+                copyValue,
             }
             localStorage.setItem('wordle--gamestate', JSON.stringify(gameState))
         }
         
-    }, [day, guesses, yellowWords, greenWords, greyWords, colors, currentIndex, isGameOver])
+    }, [day, guesses, yellowWords, greenWords, greyWords, colors, currentIndex, isGameOver, copyValue])
 
     useEffect(() => {
         document.addEventListener('keydown', keyboardKeyDown)

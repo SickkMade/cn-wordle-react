@@ -61,7 +61,7 @@
     margin-top:3%;
 }
 .fullscreen img{
-    width:10%;
+    width:calc(50px + 5%);
     object-fit: cover;
     transform-origin: center;
     aspect-ratio: 1/1;
@@ -80,11 +80,11 @@
 }
 .fullscreen img{
     position:absolute;
-    left:40%;
+    left:35%;
     top:85%;
 }
 .fullscreen img+img{
-    left:50%;
+    left:55%;
 }
 .fullscreen--container > * {
     margin:0;
