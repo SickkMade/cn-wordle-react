@@ -42,3 +42,9 @@ body button{
 .app--button__main:hover{
   cursor:pointer;
 }
+
+@media screen and (max-device-width: 480px){
+  body{
+    -webkit-text-size-adjust: none;
+  }
+}
