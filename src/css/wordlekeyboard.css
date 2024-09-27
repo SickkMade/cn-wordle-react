@@ -2,7 +2,6 @@
     aspect-ratio: 5/2;
     width:500px;
     margin:auto;
-    z-index: 1;
 }
 
 .wordlekeyboard--key{
@@ -17,7 +16,6 @@
     font: inherit;
     font-size:.65rem;
     overflow:hidden;
-    z-index: 1;
 }
 
 .wordlekeyboard--key__yellow{
